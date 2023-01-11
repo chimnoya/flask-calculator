@@ -2,7 +2,9 @@ version: 0.2
 phases:
   build:
     commands:
-      - docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) public.ecr.aws/e1p3v9w8
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/e1p3v9w8
       - docker build -t task .
       - docker tag flask:latest public.ecr.aws/e1p3v9w8/flask:latest
       - docker push public.ecr.aws/e1p3v9w8/flask:latest
+
+
